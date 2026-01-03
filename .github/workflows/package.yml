@@ -60,8 +60,8 @@ jobs:
         run: |
           mkdir -p out
           for f in *; do if test -f "$f"; then cp "$f" out/; fi; done
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.event.inputs.name }}-${{ matrix.march }}
-          path: "out/*"
+      - name: Upload to Abacus
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.ID_PERPETUITY }}" > ~/.ssh/id_perpetuity
+          scp -i ~/.ssh/id_perpetuity out/* perpetuity@abacus.asymptote.club:incoming/
