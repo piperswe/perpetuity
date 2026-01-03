@@ -19,6 +19,8 @@ jobs:
     name: Build ${{ github.event.inputs.name }} for ${{ matrix.march }}
     runs-on: ubuntu-latest
     container: ghcr.io/piperswe/perpetuity/builder:latest
+    concurrency:
+      group: ${{ github.event.inputs.name }}_${{ matrix.march }}
     strategy:
       fail-fast: false
       matrix:
