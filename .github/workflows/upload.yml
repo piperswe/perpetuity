@@ -1,0 +1,16 @@
+name: Upload process.sh
+on:
+  push:
+    branches:
+      - main
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Upload process.sh to Abacus
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.ID_PERPETUITY }}" > ~/.ssh/id_perpetuity
+          chmod 600 ~/.ssh/id_perpetuity
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_perpetuity process.sh perpetuity@abacus.asymptote.club:process.sh
