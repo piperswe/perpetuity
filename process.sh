@@ -11,16 +11,18 @@ sha256file() {
 
 cd ~
 
+incoming_dir="${1:-incoming}"
+
 lockfile ~/process.lock
 trap "rm -f ~/process.lock" EXIT
 
 for march in $(cat ~/marches.txt)
 do
-        mkdir -p incoming/$march perpetuity/$march/{pool,dists/trixie/core/binary-i386}
+        mkdir -p $incoming_dir/$march perpetuity/$march/{pool,dists/trixie/core/binary-i386}
         pushd perpetuity/$march
-        find ~/incoming/$march -name '*.deb' -exec cp '{}' pool/ \;
-        find ~/incoming/$march -name '*.udeb' -exec cp '{}' pool/ \;
-        find ~/incoming/$march -type f -delete
+        find ~/$incoming_dir/$march -name '*.deb' -exec cp '{}' pool/ \;
+        find ~/$incoming_dir/$march -name '*.udeb' -exec cp '{}' pool/ \;
+        find ~/$incoming_dir/$march -type f -delete
         dpkg-scanpackages pool/ > dists/trixie/core/binary-i386/Packages
         gzip -kf dists/trixie/core/binary-i386/Packages
         xz -kf dists/trixie/core/binary-i386/Packages
