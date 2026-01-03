@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/piperswe/perpetuity/builder:latest
     strategy:
+      fail-fast: false
       matrix:
         march:
           [
