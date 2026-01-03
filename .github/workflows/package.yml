@@ -16,8 +16,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # i386 version
-    container: debian:trixie@sha256:c71b05eac0b20adb4cdcc9f7b052227efd7da381ad10bb92f972e8eae7c6cdc9
+    container: docker.io/piperswe/debian:trixie-386
     strategy:
       matrix:
         march:
@@ -36,6 +35,7 @@ jobs:
         run: |
           sed -i 's/Types: deb/Types: deb deb-src/g' /etc/apt/sources.list.d/debian.sources
           apt-get update
+          apt-get upgrade -y
       - name: Install dependencies
         run: |
           apt-get build-dep -y "${{ github.event.inputs.name }}"
