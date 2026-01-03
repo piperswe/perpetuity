@@ -16,6 +16,7 @@ env:
   DEBEMAIL: perpetuity@piperswe.me
 jobs:
   build:
+    name: Build ${{ github.event.inputs.name }} for ${{ matrix.march }}
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/piperswe/perpetuity/builder:latest
