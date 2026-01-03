@@ -38,7 +38,7 @@ jobs:
           apt-get update
       - name: Install dependencies
         run: |
-          apt-get build-dep "${{ github.event.inputs.name }}"
+          apt-get build-dep -y "${{ github.event.inputs.name }}"
       - name: Run build
         run: |
           apt-get source --only-source --compile "${{ github.event.inputs.name }}"
