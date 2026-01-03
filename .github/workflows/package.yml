@@ -16,7 +16,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: docker.io/piperswe/debian:trixie-386
+    container: ghcr.io/piperswe/perpetuity/builder:latest
     strategy:
       matrix:
         march:
