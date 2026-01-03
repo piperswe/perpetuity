@@ -59,7 +59,7 @@ jobs:
       - name: Collect outputs
         run: |
           mkdir -p out
-          for f in *; do if [[ -f "$f" ]]; then cp "$f" out/; fi; done
+          for f in *; do if test -f "$f"; then cp "$f" out/; fi; done
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
