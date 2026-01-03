@@ -64,4 +64,4 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.ID_PERPETUITY }}" > ~/.ssh/id_perpetuity
-          scp -i ~/.ssh/id_perpetuity out/* perpetuity@abacus.asymptote.club:incoming/
+          scp -i ~/.ssh/id_perpetuity out/* perpetuity@abacus.asymptote.club:incoming/${{ matrix.march }}
