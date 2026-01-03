@@ -11,6 +11,7 @@ env:
   DPKG_DEB_COMPRESSOR_LEVEL: "19"
   DEB_BUILD_OPTIONS: nocheck
   DEB_BUILD_PROFILES: nocheck,nobiarch
+  DEB_BUILD_MAINT_OPTIONS: optimize=+lto
   DEBNAME: Perpetuity Rebuilder
   DEBEMAIL: perpetuity@piperswe.me
 jobs:
