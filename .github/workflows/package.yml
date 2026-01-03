@@ -1,10 +1,10 @@
-name: Build Package
+name: Build package
 on:
   workflow_dispatch:
     inputs:
       name:
         type: string
-        description: Which Debian source package to build
+        description: Debian source package
         required: true
 env:
   DPKG_DEB_COMPRESSOR_TYPE: zstd
