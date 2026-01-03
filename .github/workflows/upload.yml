@@ -6,6 +6,8 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
+    concurrency:
+      group: upload-progress
     steps:
       - uses: actions/checkout@v6
       - name: Upload process.sh to Abacus

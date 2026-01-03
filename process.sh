@@ -46,7 +46,6 @@ SHA256:
  $(sha256file core/binary-i386/Packages.bz2)
 EOF
         popd
-        gpg -a -s --clearsign
         gpg -a -s --clearsign < dists/trixie/Release > dists/trixie/InRelease
         gpg -a -b -s < dists/trixie/Release > dists/trixie/Release.gpg
         popd
