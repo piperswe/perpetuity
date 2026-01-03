@@ -1,4 +1,4 @@
-name: "Build package: ${{ github.event.inputs.name }}"
+name: Build package
 on:
   workflow_dispatch:
     inputs:
