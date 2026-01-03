@@ -11,7 +11,7 @@ sha256file() {
 
 cd ~
 
-lockfile -10 -r 10 ~/process.lock
+lockfile ~/process.lock
 trap "rm -f ~/process.lock" EXIT
 
 for march in $(cat ~/marches.txt)
