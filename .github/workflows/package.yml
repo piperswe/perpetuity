@@ -53,6 +53,6 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.ID_PERPETUITY }}" > ~/.ssh/id_perpetuity
           chmod 600 ~/.ssh/id_perpetuity
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_perpetuity perpetuity@abacus.asymptote.club mkdir -p /home/perpetuity/incoming/${{ matrix.march }}/${{ github.event.inputs.name }}/${{ matrix.march }}
-          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_perpetuity out/* perpetuity@abacus.asymptote.club:incoming/${{ matrix.march }}/${{ github.event.inputs.name }}/${{ matrix.march }}/
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_perpetuity perpetuity@abacus.asymptote.club /home/perpetuity/process.sh incoming/${{ matrix.march }}/${{ github.event.inputs.name }}
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_perpetuity perpetuity@abacus.asymptote.club mkdir -p /home/perpetuity/incoming/${{ matrix.march }}/${{ github.event.inputs.name }}/
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_perpetuity out/* perpetuity@abacus.asymptote.club:incoming/${{ matrix.march }}/${{ github.event.inputs.name }}/
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_perpetuity perpetuity@abacus.asymptote.club /home/perpetuity/process.sh incoming/${{ matrix.march }}/${{ github.event.inputs.name }} ${{ matrix.march }}
