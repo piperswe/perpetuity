@@ -1,0 +1,51 @@
+name: Build Package
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: string
+        description: Which Debian source package to build
+        required: true
+env:
+  DPKG_DEB_COMPRESSOR_TYPE: zstd
+  DPKG_DEB_COMPRESSOR_LEVEL: "19"
+  DEB_BUILD_OPTIONS: nocheck
+  DEB_BUILD_PROFILES: nocheck,nobiarch
+  DEBNAME: Perpetuity Rebuilder
+  DEBEMAIL: perpetuity@piperswe.me
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # i386 version
+    container: debian:trixie@sha256:c71b05eac0b20adb4cdcc9f7b052227efd7da381ad10bb92f972e8eae7c6cdc9
+    strategy:
+      matrix:
+        march:
+          [
+            pentium-mmx,
+            pentium2,
+            pentium3,
+            pentium4,
+            k6,
+            k6-2,
+            athlon,
+            athlon-xp,
+          ]
+    steps:
+      - name: Setup system
+        run: |
+          sed -i 's/Types: deb/Types: deb deb-src/g' /etc/apt/sources.list.d/debian.sources
+          apt-get update
+      - name: Install dependencies
+        run: |
+          apt-get build-dep "${{ github.event.inputs.name }}"
+      - name: Run build
+        run: |
+          apt-get source --only-source --compile "${{ github.event.inputs.name }}"
+        env:
+          DEB_CFLAGS_APPEND: -march=${{ matrix.march }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.name }}-${{ matrix.march }}
+          path: *.deb
