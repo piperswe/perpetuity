@@ -55,8 +55,12 @@ jobs:
           apt-get source --only-source --compile "${{ github.event.inputs.name }}"
         env:
           DEB_CFLAGS_APPEND: -march=${{ matrix.march }}
+      - name: Collect outputs
+        run: |
+          mkdir -p out
+          for f in *; do if [[ -f "$f" ]]; then cp "$f" out/; fi; done
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.inputs.name }}-${{ matrix.march }}
-          path: "*.deb"
+          path: "out/*"
