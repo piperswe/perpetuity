@@ -16,7 +16,11 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: ghcr.io/piperswe/perpetuity/builder:latest
+    container:
+      image: ghcr.io/piperswe/perpetuity/builder:latest
+      volumes:
+        - /tmp:/__e/node24
+        - /tmp:/__e/node20
     strategy:
       matrix:
         march:
@@ -31,6 +35,17 @@ jobs:
             athlon-xp,
           ]
     steps:
+      - name: Fix Node.js for upload-artifact
+        run: |
+          mkdir -p /__e/node24/bin
+          ln -sf $(which node) /__e/node24/bin/node
+          ln -sf $(which npm) /__e/node24/bin/npm
+          ln -sf $(which npx) /__e/node24/bin/npx
+
+          mkdir -p /__e/node20/bin
+          ln -sf $(which node) /__e/node20/bin/node
+          ln -sf $(which npm) /__e/node20/bin/npm
+          ln -sf $(which npx) /__e/node20/bin/npx
       - name: Install dependencies
         run: |
           apt-get build-dep -y "${{ github.event.inputs.name }}"
