@@ -44,6 +44,7 @@ jobs:
           apt-get source --only-source --compile "${{ github.event.inputs.name }}"
         env:
           DEB_CFLAGS_APPEND: -march=${{ matrix.march }}
+          RUSTFLAGS: -C target-cpu=${{ matrix.march }}
       - name: Collect outputs
         run: |
           mkdir -p out

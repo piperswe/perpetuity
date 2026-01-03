@@ -34,3 +34,9 @@ systemd
 libzstd
 zlib
 gcc-14
+nodejs
+npm
+node-yarnpkg
+zsh
+fish
+rustc
